@@ -1,0 +1,26 @@
+{
+  "name": "peer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "peer.js",
+  "scripts": {
+    "start": "snowpack dev" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZachLee12/peer.js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZachLee12/peer.js/issues"
+  },
+  "homepage": "https://github.com/ZachLee12/peer.js#readme",
+  "dependencies": {
+    "peerjs": "^1.4.7",
+    "snowpack": "^3.8.8"
+  },
+
+  "type": "module"
+}
