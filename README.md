@@ -1,8 +1,8 @@
 # peer.js
 
-A project using PeerJS that wraps the browser's WebRTC implementation to create a peer-to-peer connection API.
+A project using PeerJS that wraps the browser's WebRTC implementation to create a peer-to-peer connection API. 
 
-A peer can create a P2P data or media stream connection to a remote peer. A connection can be established with just a `Peer-ID` of each client.
+A peer can create a P2P data or media stream connection to a remote peer. A connection can be established with just a `Peer-ID` of each client. Full documentation avaialble at https://peerjs.com/
 
 Currently working on a GUI for the frontend, but information about the background processes are available in the DevTools console (follow the steps belows for a demo!). I plan to connect a database to this project to and send media blobs to be stored to the database from the client front-end.
 
