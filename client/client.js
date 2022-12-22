@@ -4,7 +4,7 @@ const peerID = "client-1"
 const peer = new Peer("client-1", {
     // self-hosted SERVER config: 
     host: "localhost",
-    path: "/server",
+    path: "/",
     port: "9000",
     debug: 1
 });
@@ -18,8 +18,6 @@ peer.on("error", (error) => {
     console.log(error)
 })
 
-
-
 //dataConnection events
 const conn = peer.connect("client-2") //dataConnection instance
 
@@ -32,9 +30,7 @@ conn.on("open", function () {
     conn.on("error", (err) => console.log(err))
 
     //send to client2
-    conn.send("hello!") //you can send blobs using .send()
-
-    conn.send("How are you?")
+    conn.send("hello!") //can send blobs using this
 })
 
 
@@ -43,14 +39,13 @@ let file = document.getElementById("file-input")
 let fileType = undefined;
 let fileSize = undefined;
 let fileBase64 = undefined;
+let dataReady = false;
 
 //only handles one file per time for now
 file.addEventListener("change", async function (event) {
     await getFileData(event)
+    dataReady = true;
     appendMessageHistory()
-    // console.log(fileType)
-    // console.log(fileSize);
-    // console.log(fileBase64)
 })
 
 async function getFileData(event) {
@@ -63,11 +58,12 @@ async function getFileData(event) {
 function imageToBase64(file) {
     let reader = new FileReader();
     let base64 = "";
-    reader.readAsDataURL(file) //async!!!
+    reader.readAsDataURL(file) //async
     return new Promise(resolve => {
         reader.onloadend = function () {
             //remove "data:*/*;base64", first to get base64 string
-            base64 = reader.result.split(",")[1]
+            // base64 = reader.result.split(",")[1] //if you just want base64
+            base64 = reader.result;
             resolve(base64);
         }
     })
@@ -78,10 +74,17 @@ function appendMessageHistory() {
     div.innerText =
         `[File Type]: ${fileType} 
          [File Size]: ${fileSize} 
-         [File Base64]: ${fileBase64.slice(0,10)}...`
+         [File Base64]: ${fileBase64.slice(0, 10)}...`
     document.querySelector(".message-history-box").append(div)
     document.querySelector(".base64-string").value = fileBase64
 }
+
+//button functions
+document.querySelector("#send-button").addEventListener("click", () => {
+    if (dataReady) {
+        conn.send(fileBase64)
+    }
+})
 
 
 
